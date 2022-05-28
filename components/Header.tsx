@@ -57,7 +57,7 @@ const Header: NextPage = () => {
                             <PlusCircleIcon className='navBtn' onClick={() => setOpen(true)}/>
                             <UserGroupIcon className='navBtn' />
                             <HeartIcon className='navBtn' />
-                            <img src={session?.user?.image} alt="Profile Pic" className='h-10 w-10 rounded-full cursor-pointer' onClick={signOut}/>
+                            <img src={session?.user?.image} alt="Profile Pic" className='h-10 w-10 rounded-full cursor-pointer' onClick={() => signOut()}/>
                         </>
                     ) : (
                         <button onClick={() => signIn()}>Sign In</button>

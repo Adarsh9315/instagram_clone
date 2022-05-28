@@ -27,7 +27,7 @@ interface PostsProps {
 
 const Post: React.FC<PostsProps> = (props) => {
     console.log(props)
-    const { data: session } = useSession()
+    const { data: session }:any = useSession()
     const [comment, setComment] = useState("")
     const [comments, setComments] = useState([])
     const [likes, setLikes] = useState([])
@@ -42,15 +42,15 @@ const Post: React.FC<PostsProps> = (props) => {
     }), [db, props.id])
 
     useEffect(() =>
-        setHaseLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1)
+        setHaseLiked(likes.findIndex((like:any) => like.id === session?.user?.uid) !== -1)
         , [likes])
 
     const likePost = async () => {
         if (hasLiked) {
-            await deleteDoc(doc(db, 'posts', props.id, 'likes', session.user.uid))
+            await deleteDoc(doc(db, 'posts', props.id, 'likes', session!.user!.uid))
         } else {
-            await setDoc(doc(db, 'posts', props.id, 'likes', session.user.uid), {
-                username: session.user.username
+            await setDoc(doc(db, 'posts', props.id, 'likes', session!.user!.uid), {
+                username: session!.user!.username
             })
         }
     }
@@ -63,8 +63,8 @@ const Post: React.FC<PostsProps> = (props) => {
 
         await addDoc(collection(db, 'posts', props.id, 'comments'), {
             comment: commentToSend,
-            username: session.user.username,
-            userImage: session.user.image,
+            username: session!.user!.username,
+            userImage: session!.user!.image,
             timestamp: serverTimestamp()
         })
     }
@@ -107,7 +107,7 @@ const Post: React.FC<PostsProps> = (props) => {
             {/* Comments */}
             {comments.length > 0 && (
                 <div className="ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
-                    {comments.map(comment => (
+                    {comments.map((comment:any) => (
                         <div key={comment.id} className="flex items-center space-x-2 mb-3">
                             <img src={comment.data().userImage} alt="" className="h-7 rounded-full" />
                             <p className="text-sm flex-1"><span className="font-bold">{comment.data().username}</span>

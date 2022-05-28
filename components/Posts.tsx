@@ -18,7 +18,7 @@ const Posts: React.FC<PostsProps> = (props) => {
     console.log(posts)
     return (
         <div className="">
-            {posts.map(post => (
+            {posts.map((post:any) => (
                 <Post key={post.id} id={post.id} userImg={post.data().profileImg} username={post.data().username} caption={post.data().caption} img={post.data().image}></Post>
             ))}
         </div>

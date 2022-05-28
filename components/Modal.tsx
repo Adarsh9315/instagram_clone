@@ -13,9 +13,9 @@ import { useSession } from 'next-auth/react';
 const Modal: NextPage = () => {
     const { data: session }: any = useSession();
     const [open, setOpen] = useRecoilState(modalState)
-    const captionRef = useRef(null)
+    const captionRef:any = useRef(null)
     const [selectedFile, setSelectedFile] = useState(null)
-    const filePickerRef = useRef(null)
+    const filePickerRef: any = useRef(null)
     const [loading, setLoading] = useState(false)
 
     const uploadPost = async () => {
@@ -23,7 +23,7 @@ const Modal: NextPage = () => {
         setLoading(true)
         const docRef  = await addDoc(collection(db, 'posts'), {
             username: session.user.username,
-            caption: captionRef.current.value,
+            caption: captionRef!.current!.value,
             profileImg: session.user.image,
             timestamp: serverTimestamp()
 
@@ -33,7 +33,7 @@ const Modal: NextPage = () => {
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`)
 
-        await uploadString(imageRef, selectedFile, "data_url").then(async (snapshot:any) => {
+        await uploadString(imageRef, selectedFile!, "data_url").then(async (snapshot:any) => {
             const downloadUrl = await getDownloadURL(imageRef)
 
             await updateDoc(doc(db, "posts", docRef.id), {
@@ -52,7 +52,7 @@ const Modal: NextPage = () => {
             reader.readAsDataURL(e.target.files[0]);
         }
 
-        reader.onload = (readerEvent) => {
+        reader.onload = (readerEvent:any) => {
             setSelectedFile(readerEvent.target.result)
         }
     }
@@ -90,7 +90,7 @@ const Modal: NextPage = () => {
                                     <img src={selectedFile} onClick={() => setSelectedFile(null)} className="w-full object-contain cursor-pointer" />
                                 ) : (
                                     <div className='mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 cursor-pointer'
-                                        onClick={() => filePickerRef.current.click()}
+                                        onClick={filePickerRef!.current!.click}
                                     >
                                         <CameraIcon className='h-6 w-6 text-red-600' aria-hidden='true' />
                                     </div>

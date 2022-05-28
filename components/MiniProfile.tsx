@@ -13,7 +13,7 @@ const MiniProfile: NextPage = () => {
                 <h3 className='text-sm text-gray-400'>Welcome</h3>
             </div>
 
-            <button className='text-blue-400 text-sm font-semibold' onClick={signOut}>Sign Out</button>
+            <button className='text-blue-400 text-sm font-semibold' onClick={() => signOut()}>Sign Out</button>
         </div>
     )
 }
